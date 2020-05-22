@@ -1,0 +1,30 @@
+import { DistanceM, DurationMs } from "../../interfaces/units";
+import { RoutableTileNode } from "../tiles/node";
+import { RoutableTileWay } from "../tiles/way";
+import Profile from "./Profile";
+import ProfileRule from "./ProfileRule";
+export default class DynamicProfile extends Profile {
+    static create(url: string): DynamicProfile;
+    id: string;
+    accessRules: ProfileRule[];
+    onewayRules: ProfileRule[];
+    speedRules: ProfileRule[];
+    priorityRules: ProfileRule[];
+    obstacleRules: ProfileRule[];
+    obstacleTimeRules: ProfileRule[];
+    maxSpeed: number;
+    usePublicTransport: boolean;
+    constructor(url: string);
+    getID(): string;
+    isOneWay(way: RoutableTileWay): boolean;
+    hasAccess(way: RoutableTileWay): boolean;
+    getDefaultSpeed(): number;
+    getMaxSpeed(): number;
+    getSpeed(way: RoutableTileWay): number;
+    getDistance(from: RoutableTileNode, to: RoutableTileNode, way: RoutableTileWay): DistanceM;
+    getDuration(from: RoutableTileNode, to: RoutableTileNode, way: RoutableTileWay): DurationMs;
+    getMultiplier(way: RoutableTileWay): number;
+    getCost(from: RoutableTileNode, to: RoutableTileNode, way: RoutableTileWay): number;
+    isObstacle(node: RoutableTileNode): boolean;
+    getObstacleTime(node: RoutableTileNode): DurationMs;
+}
